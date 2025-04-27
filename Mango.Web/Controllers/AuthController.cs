@@ -45,7 +45,7 @@ namespace Mango.Web.Controllers
                  await SignInUser(loginResponseDto);
                 _tokenProvider.SetToken(loginResponseDto.Token);
 
-                TempData["success"] = "Login Successful"; // Only add me
+               // TempData["success"] = "Login Successful"; // Only add me
                 return RedirectToAction("Index", "Home");  
 
             }
@@ -108,7 +108,7 @@ namespace Mango.Web.Controllers
         {
             await HttpContext.SignOutAsync();
             _tokenProvider.ClearToken();
-            TempData["success"] = "Logout Successful";
+           // TempData["success"] = "Logout Successful";
             return RedirectToAction("Index","Home");
         }
 
