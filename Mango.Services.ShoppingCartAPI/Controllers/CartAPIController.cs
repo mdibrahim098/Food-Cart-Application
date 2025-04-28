@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Mango.Services.ShoppingCartAPI.Data;
+using Mango.Services.ShoppingCartAPI.Models;
 using Mango.Services.ShoppingCartAPI.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mango.Services.ShoppingCartAPI.Controllers
 {
@@ -25,6 +27,47 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         [HttpPost("CartUpsert")]
         public async Task<ResponseDto> CartUpsert(CartDto cartDto)
         {
+            try
+            {
+                var cartHeaderFormDb = await _db.CartHeaders.FirstOrDefaultAsync(u =>u.UserId == cartDto.CartHeader.UserId);
+                if (cartHeaderFormDb == null)
+                {
+                    // create header and details
+                    CartHeader cartHeader = _mapper.Map<CartHeader>(cartDto.CartHeader);
+                    _db.CartHeaders.Add(cartHeader);
+                    await _db.SaveChangesAsync();
+                    cartDto.CartDetails.First().CartHeaderId = cartHeader.CartHeaderId;
+                   _db.CartDetails.Add(_mapper.Map<CartDetails>(cartDto.CartDetails.First()));
+                    await _db.SaveChangesAsync();
+
+                }
+                else
+                {
+                    // if header is not null
+                    // check if details has same product
+                    var cartDetailsFormDb = await _db.CartDetails
+                        .FirstOrDefaultAsync(u => u.ProductId == cartDto.CartDetails.First().ProductId
+                        && u.CartHeaderId == cartHeaderFormDb.CartHeaderId);
+                    if(cartDetailsFormDb == null)
+                    {
+                        // create cartdetails
+                    }
+                    else
+                    {
+                        // update count in cartdetails
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.ToString();
+                _response.IsSuccess = false;
+
+            }
+
 
         }
 
