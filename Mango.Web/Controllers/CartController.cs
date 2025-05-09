@@ -32,7 +32,7 @@ namespace Mango.Web.Controllers
             }
             return View();
 
-        }
+        } 
 
         [HttpPost]
         public async Task<IActionResult> ApplyCoupon(CartDto cartDto)
