@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.ShoppingCart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.MessageBus", "Mango.MessageBus\Mango.MessageBus.csproj", "{9014E755-0C08-4D3C-9EE1-9B35D61374AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.EmailAPi", "Mango.Services.EmailAPi\Mango.Services.EmailAPi.csproj", "{95F16AE5-279F-4A17-A4C2-0614DAA3C6CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{9014E755-0C08-4D3C-9EE1-9B35D61374AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9014E755-0C08-4D3C-9EE1-9B35D61374AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9014E755-0C08-4D3C-9EE1-9B35D61374AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95F16AE5-279F-4A17-A4C2-0614DAA3C6CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95F16AE5-279F-4A17-A4C2-0614DAA3C6CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95F16AE5-279F-4A17-A4C2-0614DAA3C6CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95F16AE5-279F-4A17-A4C2-0614DAA3C6CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +70,6 @@ Global
 		{39153D68-3E2E-4669-A72D-64ED50422806} = {86E6A19D-60AB-4797-B181-343D3887FE32}
 		{95B13E61-E449-4BCB-9747-DA60F77E038D} = {86E6A19D-60AB-4797-B181-343D3887FE32}
 		{9014E755-0C08-4D3C-9EE1-9B35D61374AC} = {27F99BBB-939F-453F-A253-A56ED3406FCE}
+		{95F16AE5-279F-4A17-A4C2-0614DAA3C6CE} = {86E6A19D-60AB-4797-B181-343D3887FE32}
 	EndGlobalSection
 EndGlobal
