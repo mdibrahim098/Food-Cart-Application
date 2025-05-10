@@ -35,6 +35,17 @@ namespace Mango.Services.EmailAPi.Serviecs
 
         }
 
+
+        public async Task RegisterUserEmailAndLog(string email)
+        {
+            string message = "User Registered Successful. <br/> Email :" + email;
+            await LogAndEmail(message, "dotnetmastery@gmail.com");
+
+
+
+
+        }
+
         public async Task<bool> LogAndEmail(string message, string email)
         {
             try
@@ -57,10 +68,6 @@ namespace Mango.Services.EmailAPi.Serviecs
             }
 
         }
-
-
-
-
 
 
     }
