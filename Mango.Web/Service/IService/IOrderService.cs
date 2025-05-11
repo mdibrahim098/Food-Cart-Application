@@ -4,6 +4,6 @@ namespace Mango.Web.Service.IService
 {
     public interface IOrderService
     {
-        Task<ResponseDto?> GetOrder(CartDto cartDto);
+        Task<ResponseDto?> CreateOrder(CartDto cartDto);
     }
 }
