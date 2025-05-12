@@ -69,9 +69,19 @@ namespace Mango.Services.OrderAPI.Controllers
                     CancelUrl = stripeRequestDto.CancelUrl,
                     LineItems = new List<SessionLineItemOptions>(),
                     Mode = "payment",
+                   
                 };
 
-                foreach(var item in stripeRequestDto.OrderHeader.OrderDetails)
+
+                var DiscountsObj = new List<SessionDiscountOptions>()
+                {
+                    new SessionDiscountOptions
+                    {
+                        Coupon = stripeRequestDto.OrderHeader.CouponCode
+                    }
+                };
+
+                foreach (var item in stripeRequestDto.OrderHeader.OrderDetails)
                 {
                     var sessionLineItem = new SessionLineItemOptions
                     {
@@ -90,6 +100,10 @@ namespace Mango.Services.OrderAPI.Controllers
 
                 }
 
+                if(stripeRequestDto.OrderHeader.Discount >0)
+                {
+                    options.Discounts = DiscountsObj;
+                }
                 var service = new SessionService();
                 Session session = service.Create(options);
                 stripeRequestDto.StripeSessionUrl = session.Url;
