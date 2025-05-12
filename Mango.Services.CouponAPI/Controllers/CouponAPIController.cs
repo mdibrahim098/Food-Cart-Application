@@ -151,7 +151,7 @@ namespace Mango.Services.CouponAPI.Controllers
         [Route("{id:int}")]
         [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int id)
-        {
+        { 
             try
             {
                 Coupon obj = _db.Coupons.First(u => u.CouponId == id);
