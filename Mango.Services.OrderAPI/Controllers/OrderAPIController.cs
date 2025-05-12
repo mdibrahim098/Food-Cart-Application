@@ -61,32 +61,38 @@ namespace Mango.Services.OrderAPI.Controllers
         {
 
             try
-            {
-               
+            {               
+
                 var options = new SessionCreateOptions
                 {
-
-                    SuccessUrl = "https://localhost:44300/Order/Success",
+                    SuccessUrl = stripeRequestDto.ApprovedUrl,
+                    CancelUrl = stripeRequestDto.CancelUrl,
                     LineItems = new List<SessionLineItemOptions>
                     { 
                         new SessionLineItemOptions
                         {
-                            Price = "price_",
+                            Price = "price",
                             Quantity = 2,
                         },
                     },
                     Mode = "payment",
                 };
+
+                foreach(var item in stripeRequestDto.OrderHeader.OrderDetails)
+                {
+
+                }
+
                 var service = new SessionService();
                 service.Create(options);
 
             }
-            catch (Exception ex)
+             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.ToString();
             }
-            return _response;
+             return _response;
 
         }
 
