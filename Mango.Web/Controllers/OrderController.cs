@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
@@ -18,6 +19,23 @@ namespace Mango.Web.Controllers
         public IActionResult OrderIndex()
         {
             return View();
+        }
+
+        public async Task<IActionResult> OrderDetail(int orderId)
+        {
+            OrderHeaderDto orderHeaderDto = new OrderHeaderDto();
+            string userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
+           
+            var response = await _orderService.GetOrder(orderId);
+            if (response != null && response.IsSuccess)
+            {
+                orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result));
+            }
+            if(!User.IsInRole(SD.RoleAdmin) && userId != orderHeaderDto.UserId)
+            {
+                return NotFound();
+            }
+            return View(orderHeaderDto);
         }
 
         [HttpGet]
