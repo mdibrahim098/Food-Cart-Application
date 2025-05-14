@@ -24,7 +24,7 @@ namespace Mango.Web.Controllers
         public IActionResult GetAll()
         {
             IEnumerable<OrderHeaderDto> list;
-                string userId = "";
+            string userId = "";
             if(!User.IsInRole(SD.RoleAdmin))
             {
                 userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
@@ -40,8 +40,6 @@ namespace Mango.Web.Controllers
             }
             return Json(new { data = list });
         }
-
-
 
 
     }
