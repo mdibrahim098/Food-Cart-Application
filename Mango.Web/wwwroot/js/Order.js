@@ -17,7 +17,7 @@ $(document).ready(function () {
                 loadDataTable("all");
             }
         }
-    }
+    } 
 });
 
 function loadDataTable(status) {
