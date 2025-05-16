@@ -54,12 +54,17 @@ namespace Mango.Web.Service
                         {
                             var file = (FormFile)value;
                             if(file != null)
-                            {content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName); }
-
+                            {
+                                content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName);
+                            }
                         }
-                     }
-
-                 }
+                        else
+                        {
+                            content.Add(new StringContent( value == null ? "" : value.ToString()), prop.Name);
+                        }
+                    }
+                    message.Content = content;
+                }
                 else
                 {
                     if (requestDto.Data != null)
