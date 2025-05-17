@@ -7,7 +7,7 @@
       "applicationUrl": "http://localhost:25045",
       "sslPort": 44331
     }
-  },
+  }, 
   "profiles": {
     "http": {
         "commandName": "Project",
