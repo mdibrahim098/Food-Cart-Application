@@ -40,8 +40,6 @@ This repository contains a complete microservices-based e-commerce application b
 
 ## ⚙️ How to Run (Local Development)
 
-### Step 1: Clone the Repo
-
 ```bash
 git clone https://github.com/yourusername/dotnet8-microservices.git
 cd dotnet8-microservices
