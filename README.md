@@ -38,11 +38,6 @@ This repository contains a complete microservices-based e-commerce application b
 - Swagger / OpenAPI
 - Bootstrap 5
 
-## ⚙️ How to Run (Local Development)
-
-```bash
-git clone https://github.com/yourusername/dotnet8-microservices.git
-cd dotnet8-microservices
 🔐 Authentication
 Uses ASP.NET Core Identity for Registration/Login
 
