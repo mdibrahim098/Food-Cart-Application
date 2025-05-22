@@ -19,6 +19,7 @@ This repository contains a complete microservices-based e-commerce application b
 - ✅ Built on **.NET 8** with **Clean Architecture**
 - ✅ Role-based Authentication and Authorization with **.NET Identity**
 - ✅ **Azure Service Bus** for async communication (Topics & Queues)
+- ✅ **RabbitMQ** for async communication (Topics & Queues)
 - ✅ **Ocelot Gateway** for centralized routing and API security
 - ✅ **MVC Web Application** frontend using Bootstrap 5
 - ✅ Swagger UI for all APIs
