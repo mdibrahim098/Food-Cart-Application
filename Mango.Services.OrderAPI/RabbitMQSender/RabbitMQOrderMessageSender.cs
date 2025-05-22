@@ -11,6 +11,9 @@ namespace Mango.Services.OrderAPI.RabbitMQSender
         private readonly string _userName;
         private readonly string _password;
         private IConnection _connection;
+        private const string OrderCreated_RewardsUpdateQueue = "RewardsUpdateQueue";
+        private const string OrderCreated_EmailUpdatedQueue = "EmailUpdateQueue";
+        
         public RabbitMQOrderMessageSender()
         {
             _hostName = "localhost";
@@ -22,10 +25,17 @@ namespace Mango.Services.OrderAPI.RabbitMQSender
             if(ConnectionExists())
             {
                 using var channel = _connection.CreateModel();
-                channel.ExchangeDeclare(exchangeName,ExchangeType.Fanout, durable: false);
+                channel.ExchangeDeclare(exchangeName,ExchangeType.Direct, durable: false);
+                channel.QueueDeclare(OrderCreated_EmailUpdatedQueue,false,false,false,null);
+                channel.QueueDeclare(OrderCreated_RewardsUpdateQueue, false, false, false, null);
+
+                channel.QueueBind(OrderCreated_EmailUpdatedQueue, exchangeName, "EmailUpdate");
+                channel.QueueBind(OrderCreated_RewardsUpdateQueue, exchangeName, "RewardsUpdate");
+
                 var json = JsonConvert.SerializeObject(message);
                 var body = Encoding.UTF8.GetBytes(json);
-                channel.BasicPublish(exchange: exchangeName, null, body: body);
+                channel.BasicPublish(exchange: exchangeName, "EmailUpdate", null, body: body);
+                channel.BasicPublish(exchange: exchangeName, "RewardsUpdate", null, body: body);
             }
         }
 

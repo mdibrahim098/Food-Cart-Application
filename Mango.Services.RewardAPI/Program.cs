@@ -1,3 +1,4 @@
+using Mango.Services.EmailAPi.Messaging;
 using Mango.Services.RewardAPI.Data;
 using Mango.Services.RewardAPI.Extension;
 using Mango.Services.RewardAPI.Messaging;
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 var optionBuilder = new DbContextOptionsBuilder<AppDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddSingleton(new RewardService(optionBuilder.Options));
-
+builder.Services.AddHostedService<RabbitMQOrderConsumer>();
 builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 
 builder.Services.AddControllers();
