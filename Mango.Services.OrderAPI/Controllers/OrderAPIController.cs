@@ -3,6 +3,7 @@ using Mango.MessageBus;
 using Mango.Services.OrderAPI.Data;
 using Mango.Services.OrderAPI.Models;
 using Mango.Services.OrderAPI.Models.Dto;
+using Mango.Services.OrderAPI.RabbitMQSender;
 using Mango.Services.OrderAPI.Service.IService;
 using Mango.Services.OrderAPI.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -23,10 +24,13 @@ namespace Mango.Services.OrderAPI.Controllers
         private IMapper _mapper;
         private readonly AppDbContext _db;
         private readonly IProductService _productService;
-        private readonly IMessageBus _messageBus;
+        //private readonly IMessageBus _messageBus;
+        private readonly IRabbitMQOrderMessageSender _messageBus;
         private readonly IConfiguration _configuration;
         public OrderAPIController(IMapper mapper, AppDbContext db, 
-            IProductService productService, IMessageBus messageBus, IConfiguration configuration)
+            IProductService productService,
+            IRabbitMQOrderMessageSender messageBus,
+            IConfiguration configuration)
         {
             _response = new ResponseDto();
             _mapper = mapper;
@@ -183,7 +187,6 @@ namespace Mango.Services.OrderAPI.Controllers
 
         }
 
-
         [Authorize]
         [HttpPost("ValidateStripeSession")]
         public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
@@ -199,7 +202,7 @@ namespace Mango.Services.OrderAPI.Controllers
                 var paymentIntentService = new PaymentIntentService();
                 PaymentIntent paymentIntent = paymentIntentService.Get(session.PaymentIntentId);
 
-                if(paymentIntent.Status == "succeeded")
+                if (paymentIntent.Status == "succeeded")
                 {
                     //then payment was successful
                     orderHeader.PaymentIntentId = paymentIntent.Id;
@@ -212,7 +215,7 @@ namespace Mango.Services.OrderAPI.Controllers
                         UserId = orderHeader.UserId,
                     };
                     string topicName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
-                    await _messageBus.PublishMessage(rewardsDto, topicName);
+                     _messageBus.SendMessage(rewardsDto, topicName);
                     _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
                 }
             }
@@ -224,6 +227,50 @@ namespace Mango.Services.OrderAPI.Controllers
             return _response;
 
         }
+
+
+
+
+        //[Authorize]
+        //[HttpPost("ValidateStripeSession")]
+        //public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
+        //{
+
+        //    try
+        //    {
+        //        OrderHeader orderHeader = _db.OrderHeaders.First(u => u.OrderHeaderId == orderHeaderId);
+
+        //        var service = new SessionService();
+        //        Session session = service.Get(orderHeader.StripeSessionId);
+
+        //        var paymentIntentService = new PaymentIntentService();
+        //        PaymentIntent paymentIntent = paymentIntentService.Get(session.PaymentIntentId);
+
+        //        if(paymentIntent.Status == "succeeded")
+        //        {
+        //            //then payment was successful
+        //            orderHeader.PaymentIntentId = paymentIntent.Id;
+        //            orderHeader.Status = SD.Status_Approved;
+        //            _db.SaveChanges();
+        //            RewardsDto rewardsDto = new()
+        //            {
+        //                OrderId = orderHeader.OrderHeaderId,
+        //                RewardsActivity = Convert.ToInt32(orderHeader.OrderTotal),
+        //                UserId = orderHeader.UserId,
+        //            };
+        //            string topicName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
+        //            await _messageBus.PublishMessage(rewardsDto, topicName);
+        //            _response.Result = _mapper.Map<OrderHeaderDto>(orderHeader);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _response.IsSuccess = false;
+        //        _response.Message = ex.ToString();
+        //    }
+        //    return _response;
+
+        //}
 
 
         [Authorize]
