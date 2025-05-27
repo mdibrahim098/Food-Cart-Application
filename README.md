@@ -59,8 +59,8 @@ Repository Pattern + Unit of Work
 DTOs, AutoMapper
 
 Dependency Injection
-
 ## 📁 Project Structure
+
 📦 FoodCartApplication.sln             # Solution file to build and run all projects
 ├── 📂 Mango.GatewaySolution          # Ocelot API Gateway for routing and security
 │   └── Ocelot configurations, logging, and middleware
@@ -95,4 +95,3 @@ Dependency Injection
 ├── .gitignore                        # Files/folders to exclude from Git
 ├── .gitattributes                    # Git settings for line endings, etc.
 └── README.md                         # Project overview and usage guide
-
