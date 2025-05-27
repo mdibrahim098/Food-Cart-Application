@@ -59,3 +59,40 @@ Repository Pattern + Unit of Work
 DTOs, AutoMapper
 
 Dependency Injection
+
+## 📁 Project Structure
+📦 FoodCartApplication.sln             # Solution file to build and run all projects
+├── 📂 Mango.GatewaySolution          # Ocelot API Gateway for routing and security
+│   └── Ocelot configurations, logging, and middleware
+│
+├── 📂 Mango.MessageBus               # MessageBus abstraction layer
+│   └── Azure Service Bus or RabbitMQ integration
+│
+├── 📂 Mango.Web                      # ASP.NET MVC Web frontend (Bootstrap 5 UI)
+│   └── Razor Views, Controllers, Identity Client Integration
+│
+├── 📂 Mango.Services.AuthAPI        # Identity microservice
+│   └── ASP.NET Core Identity, JWT, Roles (Admin/User)
+│
+├── 📂 Mango.Services.ProductAPI     # Product Catalog microservice
+│   └── CRUD operations for products using EF Core
+│
+├── 📂 Mango.Services.CouponAPI      # Coupon and discount logic
+│   └── Manage and validate discount codes
+│
+├── 📂 Mango.Services.ShoppingCartAPI # Shopping cart operations
+│   └── Add/remove/update items in user’s cart
+│
+├── 📂 Mango.Services.OrderAPI       # Order processing service
+│   └── Order creation and status tracking
+│
+├── 📂 Mango.Services.EmailAPI       # Email notification service
+│   └── Sends emails after order confirmation
+│
+├── 📂 Mango.Services.RewardAPI      # Reward points service
+│   └── Manages user loyalty and points
+│
+├── .gitignore                        # Files/folders to exclude from Git
+├── .gitattributes                    # Git settings for line endings, etc.
+└── README.md                         # Project overview and usage guide
+
