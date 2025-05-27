@@ -60,7 +60,7 @@ DTOs, AutoMapper
 
 Dependency Injection
 ## 📁 Project Structure
-
+```text
 📦 FoodCartApplication.sln             # Solution file to build and run all projects
 ├── 📂 Mango.GatewaySolution          # Ocelot API Gateway for routing and security
 │   └── Ocelot configurations, logging, and middleware
