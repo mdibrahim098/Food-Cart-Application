@@ -1,6 +1,6 @@
 # .NET 8 Microservices E-Commerce Application
 
-This repository contains a complete microservices-based e-commerce application built using the latest features of **.NET 8**, **Entity Framework Core**, **Ocelot API Gateway**, and **Azure Service Bus**. This is a practical, code-first guide where you will learn to build, structure, and deploy a real-world .NET-based distributed system.
+This repository contains a complete microservices-based Food-Cart-Application built using the latest features of **.NET 8**, **Entity Framework Core**, **Ocelot API Gateway**, and **Azure Service Bus**. This is a practical, code-first guide where you will learn to build, structure, and deploy a real-world .NET-based distributed system.
 
 ## 📦 Microservices Implemented
 
